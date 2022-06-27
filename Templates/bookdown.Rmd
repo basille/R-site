@@ -1,0 +1,110 @@
+---
+title: "Title"
+author: "Mathieu Basille"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output:
+  bookdown::gitbook:
+    toc_depth: 6
+    config:
+      toc:
+        collapse: none
+      sharing: null
+    # css: custom-style.css
+    # includes:
+    #   in_header: header.html
+    #   after_body: custom-js.js
+description: ""
+url: https\://basille.org/grenoble/
+apple-touch-icon: "apple-touch-icon.png"
+apple-touch-icon-size: 120
+favicon: "Images/favicon.png"
+---
+
+
+```{r r-setup, include = FALSE, cache = FALSE}
+
+## Options de chunks
+knitr::opts_chunk$set(
+
+    ## Noms de chunks
+    ## knitr.duplicate.label = "allow" # Autoriser les noms de chunks dupliqués pour `purl`()
+
+    ## Gestion du code, des erreurs, warning, messages
+    echo = TRUE,       # Afficher le code (*TRUE*/FALSE)
+    error = FALSE,     # Continuer l'exécution malgé les erreurs ? (TRUE/*FALSE*)
+    warning = TRUE,    # Afficher les warnings de R (*TRUE*/FALSE)
+    message = TRUE,    # Afficher les messages de R (*TRUE*/FALSE)
+
+    ## Gestion du cache
+    cache = TRUE,       # Gère l'utilisation du cache pour l'exécution du code (TRUE/*FALSE*)
+    cache.lazy = FALSE, # Pour bookdown : si le cache est chargé de manière 'lazy',
+                        # les objets ne sont pas retrouvés dans la session
+                        # s'ils ne sont pas utilisés dans le code : 
+                        # https://github.com/rstudio/bookdown/issues/323 
+
+    ## Options des figures par défaut
+    fig.width = 7,
+    fig.height = 7,
+    out.width = "75%",
+    fig.align = "center",
+    ## dpi = 144,         # Résolution de 144 dpi (défaut : 72)
+    ## fig.show = "hold", # Toutes les figures d'un chunk dans un seul environnement `Figure`
+
+    ## Formatage du code à l'aide de `styler`
+    comment = "",      # Pas de préfixe pour les sorties
+    tidy = "styler",   # On utilise `styler` avec les options suivantes :
+    tidy.opts = list(
+        strict = TRUE, # Formatage le plus invasif
+        indent_by = 4, # Au lieu de 2 par défaut
+        start_comments_with_one_space = TRUE # Toujours démarrer les commentaires avec un espace
+    ),
+
+    ## Options vidéo
+    ffmpeg.format = "mp4" # Use mp4 as video format
+)
+
+## Packages R
+
+
+```
+
+## Première section
+
+Du texte…
+
+```{r r-code}
+
+## Du code R
+2+2
+plot(1:10)
+bla <- 10
+
+```
+
+Une image externe :
+
+```{r figure, include = FALSE, out.width = "25%", fig.align = "left", fig.cap = "Une image."}
+
+knitr::include_graphics(file.path(R.home("doc"), "html", "logo.jpg"))
+
+```
+
+Et un tableau :
+
+```{r table}
+
+knitr::kable(iris[1:5, ],
+    col.names = c("Longueur S", "Largeur S", "Longueur P", "Largeur P", "Espèce"),
+    align = "rrllc", digits = 3, caption = "Un tableau.")
+
+```
+
+
+
+
+```{r r-session, echo = FALSE, results = "asis"}
+
+session_info_md(language = "FR")
+
+```

@@ -1,0 +1,129 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document class, title & author
+\documentclass[a4paper]{article}
+\title{Title}
+\author{Mathieu Basille}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages and global options for LaTeX
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french, american]{babel}
+\usepackage{graphicx, fancyvrb, color, mdframed}
+\usepackage[a4paper]{geometry}
+\usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \fancyhf{}
+  \lhead{\textsc{Basille M.}}
+  \rhead{\emph{Short title}}
+  \cfoot{\thepage}
+% \usepackage{natbib}
+%   \bibliographystyle{apalike}
+\usepackage[breaklinks=true,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% New commands
+\newcommand{\gt}{>}
+\definecolor{lgray}{rgb}{.97, .97, .97}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% R & knitr options
+<<Rinit, include = FALSE, cache = FALSE>>=
+## Chunk options
+knitr::opts_chunk$set(
+                      error = FALSE,    # stops on error
+                      cache = TRUE      # chunks cached by default
+                      ## cache.lazy = FALSE # cache is not lazy loaded; see https://github.com/rstudio/bookdown/issues/323
+                     )
+
+## formatR options
+knitr::opts_chunk$set(
+                      tidy = TRUE,                      # use formatR
+                      tidy.opts = list(arrow = TRUE,    # force assignement to <-
+                                       comment = FALSE) # remove comments from code
+                     )
+
+## Figure options
+knitr::opts_chunk$set(
+                      dpi = 144,            # resolution of 144 dpi
+                      fig.width = 7,        # default size is 7×7 in
+                      fig.height = 7,       #  "
+                      out.width = "70%",    # default output size = 70%
+                      fig.align = "center"  # figures centered by default
+                      ## fig.show = "hold"     # all figures from a chunk are put
+                                            # together in a `Figure` environment
+                     )
+
+## Video options
+knitr::opts_chunk$set(
+                      ffmpeg.format = "mp4" # Use mp4 as video format
+                     )
+
+## Base packages
+library(basr)
+library(cowplot)
+theme_update(panel.grid.major = element_line(colour = "grey90", 
+    size = 0.2))
+assignInNamespace("theme_nothing", function(){
+    theme_void() +
+    theme(panel.grid.major = element_blank())
+}, "cowplot")
+
+## Other packages
+
+@
+
+<<knitr-inside-R, echo = FALSE, eval = FALSE>>=
+library(knitr)
+knit("knitr-template.Rnw")
+@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\maketitle
+
+
+\tableofcontents
+
+
+
+
+
+
+
+
+
+% \newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% R session information
+\begin{mdframed}[backgroundcolor=lgray]
+<<Rexit, echo = FALSE>>=
+print(sessionInfo(), locale = FALSE)
+cat(paste("Working directory:\n", getwd(), sep = ""))
+@
+\end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+% \begin{small}
+%   \bibliography{BiblioMB}
+% \end{small}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
