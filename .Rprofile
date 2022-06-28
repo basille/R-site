@@ -393,7 +393,7 @@ locale_date <- function(x =  Sys.Date(), format = "%A %d %B",
 
 ## session_info adapted for Markdown output
 session_info_md <- function(language = c("EN", "FR"), header_level = 2,
-    unnumbered = FALSE) {
+    unnumbered = FALSE, sort_attached =  TRUE) {
     if (!(header_level %in% 2:6))
         stop("`header_level` must be an integer between 1 and 6")
     header_main <- paste(rep("#", header_level), collapse = "")
@@ -439,13 +439,16 @@ session_info_md <- function(language = c("EN", "FR"), header_level = 2,
     cat(paste0("\n", header_second, " ", packages_header, header_numb))
     flib <- function(x) ifelse(is.na(x), "?", as.integer(x))
     packages <- data.frame(package = sess$packages$package,
-        `*` = ifelse(sess$packages$attached, "*", ""),
+        attached = ifelse(sess$packages$attached, "*", ""),
         version = ifelse(is.na(sess$packages$loadedversion),
             sess$packages$ondiskversion, sess$packages$loadedversion),
         `date (UTC)` = sess$packages$date,
         lib = paste0("[", flib(sess$packages$library), "]"),
         source = sessioninfo:::abbrev_long_sha(sess$packages$source),
         stringsAsFactors = FALSE, check.names = FALSE)
+    if (sort_attached)
+        packages <- packages[order(packages$attached, packages$package,
+            decreasing = c(TRUE, FALSE), method = "radix"), ]
     print(knitr::kable(packages, row.names = FALSE, align = "lcrrrr",
         col.names = c(package_name, attached_name, version_name,
             date_name, lib_name, source_name)))
@@ -453,4 +456,5 @@ session_info_md <- function(language = c("EN", "FR"), header_level = 2,
     cat(paste(sapply(seq_along(levels(sess$packages$library)), function(i) {
         paste0("* [", i, "] `", levels(sess$packages$library)[i], "`")
     }), collapse = "\n"))
+    cat("\n")
 }
