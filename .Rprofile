@@ -75,11 +75,12 @@ if (interactive()) {
         spatial = all,
         moveco = all,
         tidyverse = all,
+        tidymodels = FALSE,
         plotting = all,
         data = all,
         modeling = all,
         others = all,
-        github = all)
+        github = FALSE)
     {
         ## Packages on CRAN
 
@@ -90,35 +91,29 @@ if (interactive()) {
                 "concaveman",       # A Very Fast 2D Concave Hull Algorithm
                 "elevatr",          # Access Elevation Data from Various APIs
                 "geodata",          # Download Geographic Data
-                ## "googleway",     # Accesses Google Maps APIs to Retrieve Data and Plot Maps
                 "ggspatial",        # Spatial Data Framework for ggplot2
                 "gstat",            # Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation
                 "landscapemetrics", # Landscape Metrics for Categorical Map Patterns
                 "leaflet",          # Create Interactive Web Maps with the JavaScript 'Leaflet' Library
                 "lwgeom",           # Bindings to Selected 'liblwgeom' Functions for Simple Features
-                "maptools",         # Tools for Reading and Handling Spatial Objects
+                "mapsf",            # Thematic Cartography
                 "mapview",          # Interactive Viewing of Spatial Data in R
-                ## "RandomFields",     # Simulation and Analysis of Random Fields
                 "raster",           # Geographic Data Analysis and Modeling
                 "rasterVis",        # Visualization Methods for Raster Data
                 "RColorBrewer",     # ColorBrewer Palettes
                 "rayshader",        # Create Maps and Visualize Data in 2D and 3D
-                ## "rgdal",            # Bindings for the Geospatial Data Abstraction Library
-                ## "rgeos",            # Interface to Geometry Engine - Open Source (GEOS)
                 "rnaturalearth",    # World Map Data from Natural Earth
                 "rnaturalearthdata", # World Vector Map Data from Natural Earth Used in 'rnaturalearth'
-                "rworldmap",        # Mapping Global Data
-                "rworldxtra",       # Country boundaries at high resolution
-                ## "SDMTools",         # Species Distribution Modelling Tools: Tools for processing data associated with species distribution modelling exercises
                 "sf",               # Simple Features for R
-                ## "sp",               # Classes and Methods for Spatial Data
+                "sp",               # Classes and Methods for Spatial Data
                 "spData",           # Datasets for spatial analysis
                 "spacetime",        # Classes and Methods for Spatio-Temporal Data
                 "spatstat",         # Spatial Point Pattern Analysis, Model-Fitting, Simulation, Tests
                 "spdep",            # Spatial Dependence: Weighting Schemes, Statistics and Models
                 "splancs",          # Spatial and Space-Time Point Pattern Analysis
                 "stars",            # Spatiotemporal Arrays, Raster and Vector Data Cubes
-                "terra"             # Spatial Data Analysis
+                "terra",            # Spatial Data Analysis
+                "tmap"              # Thematic Maps
             )
             ## Installation of new packages (i.e. not previously installed):
             packages.new <- packages.list[!(packages.list %in% installed.packages()[,"Package"])]
@@ -155,8 +150,8 @@ if (interactive()) {
             }
         }
 
-        ## Tidyverse
-        ## As of v1.3 includes (2019-11-21), installs:
+        ## Tidyverse & Tidymodels
+        ## As of v1.3.1 includes (2021-04-15), tidyverse installs:
         ## ** Core (automatically loaded with `library(tidyverse)`:
         ## - dplyr: A Grammar of Data Manipulation
         ## - forcats: Tools for Working with Categorical Variables (Factors)
@@ -166,25 +161,41 @@ if (interactive()) {
         ## - stringr: Simple, Consistent Wrappers for Common String Operations
         ## - tibble: Simple Data Frames
         ## - tidyr: Easily Tidy Data with 'spread()' and 'gather()' Functions
-        ## ** Specific vectors:
-        ## - blob: A Simple S3 Class for Representing Vectors of Binary Data ('BLOBS')
-        ## - hms: Pretty Time of Day
-        ## - lubridate: Make Dealing with Dates a Little Easier
-        ## ** Data import:
+        ## ** Import:
         ## - DBI: R Database Interface
+        ## - googledrive: An Interface to Google Drive
+        ## - googlesheets4: Access Google Sheets using the Sheets API V4
         ## - haven: Import and Export 'SPSS', 'Stata' and 'SAS' Files
         ## - httr: Tools for Working with URLs and HTTP
         ## - jsonlite: A Robust, High Performance JSON Parser and Generator for R
         ## - readxl: Read Excel Files
         ## - rvest: Easily Harvest (Scrape) Web Pages
         ## - xml2: Parse XML
-        ## ** Programming:
-        ## - magrittr: A Forward-Pipe Operator for R
+        ## ** dplyr backends:
+        ## - dbplyr: A 'dplyr' Back End for Databases
+        ## - dtplyr: Data Table Back-End for 'dplyr'
+        ## ** Wrangle:
+        ## - blob: A Simple S3 Class for Representing Vectors of Binary Data ('BLOBS')
+        ## - hms: Pretty Time of Day
+        ## - lubridate: Make Dealing with Dates a Little Easier
+        ## ** Program:
         ## - glue: Interpreted String Literals
-        ## ** Modeling: tidymodels? https://www.tidymodels.org/packages/
+        ## - magrittr: A Forward-Pipe Operator for R
+        ## ** Model: use tidymodels https://www.tidymodels.org/packages/
         if (tidyverse) {
             packages.list <- c(
                 "tidyverse"          # Easily Install and Load 'Tidyverse' Packages
+            )
+            ## Installation of new packages (i.e. not previously installed):
+            packages.new <- packages.list[!(packages.list %in% installed.packages()[,"Package"])]
+            if (length(packages.new)) {
+                message(paste0("Installing packages (with dependencies):\n  ", paste(packages.new, collapse = "\n  ")))
+                install.packages(packages.new)
+            }
+        }
+        if (tidymodels) {
+            packages.list <- c(
+                "tidymodels"          # Easily Install and Load 'Tidymodels' Packages
             )
             ## Installation of new packages (i.e. not previously installed):
             packages.new <- packages.list[!(packages.list %in% installed.packages()[,"Package"])]
@@ -289,7 +300,7 @@ if (interactive()) {
             packages.list <- c(
                 "blogdown",          # Create Blogs and Websites with R Markdown
                 "bookdown",          # Authoring Books and Technical Documents with R Markdown
-                ## "calend", # Ready to Print Monthly and Yearly Calendars Made with 'ggplot2'
+                "calendR", # Ready to Print Monthly and Yearly Calendars Made with 'ggplot2'
                 "charlatan",         # Make Fake Data
                 "conflicted",        # An Alternative Conflict Resolution Strategy
                 "cowsay",            # Messages, Warnings, Strings with Ascii Animals
@@ -301,7 +312,6 @@ if (interactive()) {
                 "formatR",           # Format R Code Automatically
                 "formattable",       # Create 'Formattable' Data Structures
                 "fortunes",          # R Fortunes
-                ## "goodpractice",      # Advice on R Package Building
                 "Hmisc",             # Harrell Miscellaneous
                 "httpgd",            # A 'HTTP' Server Graphics Device
                 "ids",               # Generate Random Identifiers
@@ -312,7 +322,6 @@ if (interactive()) {
                 "lintr",             # Static R Code Analysis
                 "magick",            # Advanced Graphics and Image-Processing in R
                 "nomnoml",           # Sassy 'UML' Diagrams
-                ## "packagefinder",     # Comfortable Search for R Packages on CRAN (requires R 3.4.0)
                 "packrat", # A Dependency Management System for Projects and their R Package Dependencies
                 "pkgdown",           # Make Static HTML Documentation for a Package
                 "printr", # Automatically Print R Objects to Appropriate Formats According to the 'knitr' Output Format
@@ -354,6 +363,7 @@ if (interactive()) {
                 "lina2497/Giftmap",                 # Create map posters
                 "cloudyr/limer",                    # A LimeSurvey R client
                 "sctyner/memer",                    # Creating memes with R and magick
+                "jsugarelli/packagefinder",         # Comfortable Search for R Packages on CRAN
                 "cloudyr/rmote"                     # Running R on a remote server
             ))
             packages.list$name <- unlist(lapply(strsplit(as.character(packages.list$source), "/"), function(li) li[2]))
