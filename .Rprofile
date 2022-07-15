@@ -113,6 +113,7 @@ if (interactive()) {
                 "splancs",          # Spatial and Space-Time Point Pattern Analysis
                 "stars",            # Spatiotemporal Arrays, Raster and Vector Data Cubes
                 "terra",            # Spatial Data Analysis
+                "tidyterra",        # 'tidyverse' Methods and 'ggplot2' Utils for 'terra' Objects
                 "tmap"              # Thematic Maps
             )
             ## Installation of new packages (i.e. not previously installed):
