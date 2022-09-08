@@ -364,6 +364,7 @@ if (interactive()) {
                 "lina2497/Giftmap",                 # Create map posters
                 "cloudyr/limer",                    # A LimeSurvey R client
                 "sctyner/memer",                    # Creating memes with R and magick
+                "picardis/nestR",                   # Estimation of Bird Nesting from Tracking Data
                 "jsugarelli/packagefinder",         # Comfortable Search for R Packages on CRAN
                 "cloudyr/rmote"                     # Running R on a remote server
             ))
@@ -373,7 +374,7 @@ if (interactive()) {
             packages.new <- packages.list$source[!(packages.list$name %in% installed.packages()[,"Package"])]
             if (length(packages.new)) {
                 message(paste0("Installing packages from GitHub (with dependencies):\n  ", paste(packages.new, collapse = "\n  ")))
-                remotes::install_github(packages.new)
+                remotes::install_github(packages.new, build_vignettes = TRUE)
             }
 
         }
