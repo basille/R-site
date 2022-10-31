@@ -26,10 +26,6 @@ if (interactive()) {
         styler.cache_root = "styler"
     )
 
-    ## Identifications: ORCiD & GBIF
-    source("~/.R-site/.ORCiD")
-    source("~/.R-site/.GBIF")
-
     ## Interactive sessions get a fortune cookie (needs cosway and
     ## fortunes packages)
     if (require("cowsay", quietly = TRUE))
@@ -391,6 +387,10 @@ if (interactive()) {
     }
 
 }
+
+## Identifications: ORCiD & GBIF
+source("~/.R-site/.ORCiD")
+source("~/.R-site/.GBIF")
 
 ## date in different locale (e.g. French)
 ## https://stackoverflow.com/questions/65412576/how-to-ouput-a-date-punctually-in-another-language-in-r
