@@ -217,6 +217,7 @@ if (interactive()) {
                 "gganimate",         # A Grammar of Animated Graphics
                 "ggbeeswarm",        # Categorical Scatter (Violin Point) Plots
                 "ggdark",            # Dark Mode for 'ggplot2' Themes
+                "ggExtra",           # Add Marginal Histograms to 'ggplot2', and More 'ggplot2' Enhancements
                 "ggforce",           # Accelerating 'ggplot2'
                 "ggfortify",         # Data Visualization Tools for Statistical Analysis Results
                 "gghighlight",       # Highlight Lines and Points in 'ggplot2'
