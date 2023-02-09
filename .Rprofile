@@ -207,6 +207,7 @@ if (interactive()) {
             packages.list <- c(
                 "adegraphics",       # An S4 Lattice-Based Package for the Representation of Multivariate Data
                 "Cairo",             # R graphics device using cairo graphics library for creating high-quality bitmap (PNG, JPEG, TIFF), vector (PDF, SVG, PostScript) and display (X11 and Win32) output
+                "colorBlindness",    # Safe Color Set for Color Blindness
                 "colorRamps",        # Builds color tables
                 "cowplot",           # Streamlined Plot Theme and Plot Annotations for 'ggplot2'
                 "explor",            # Interactive Interfaces for Results Exploration
