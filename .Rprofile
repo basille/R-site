@@ -55,7 +55,7 @@ if (interactive()) {
 #    remotes::install_github(\"basille/basr\")"))
 
     ## Conflict resolution with conflicted:
-#    require("conflicted", quietly = TRUE)
+    require("conflicted", quietly = TRUE)
 
     ## ## Change some defaults
     ## ## Table with NAs
@@ -222,8 +222,10 @@ if (interactive()) {
                 "ggforce",           # Accelerating 'ggplot2'
                 "ggfortify",         # Data Visualization Tools for Statistical Analysis Results
                 "gghighlight",       # Highlight Lines and Points in 'ggplot2'
+                "ggshadow",          # Shadow and Glow Geoms for 'ggplot2'
                 "ggraph",            # An Implementation of Grammar of Graphics for Graphs and Networks
                 "ggrepel",           # Repulsive Text and Label Geoms for 'ggplot2'
+                "ggtext",            # Improved text rendering support for ggplot2
                 "ggthemes",          # Extra Themes, Scales and Geoms for 'ggplot2'
                 "ggwordcloud",       # A Word Cloud Geom for 'ggplot2'
                 "gridExtra",         # Miscellaneous Functions for "Grid" Graphics
@@ -303,6 +305,7 @@ if (interactive()) {
                 "charlatan",         # Make Fake Data
                 "conflicted",        # An Alternative Conflict Resolution Strategy
                 "cowsay",            # Messages, Warnings, Strings with Ascii Animals
+                "ctv",               # CRAN Task Views
                 "default",           # Change the Default Arguments in R Functions
                 "devtools",          # Tools to Make Developing R Packages Easier
                 "diffr",             # Display Differences Between Two Files using Codediff Library
