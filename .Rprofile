@@ -323,8 +323,10 @@ if (interactive()) {
                 "liftr",             # Containerize R Markdown Documents for Continuous Reproducibility
                 "lintr",             # Static R Code Analysis
                 "magick",            # Advanced Graphics and Image-Processing in R
+                "mailR",             # A Utility to Send Emails from R
                 "nomnoml",           # Sassy 'UML' Diagrams
                 "packrat", # A Dependency Management System for Projects and their R Package Dependencies
+                "palmerpenguins",    # Palmer Archipelago (Antarctica) Penguin Data
                 "pkgdown",           # Make Static HTML Documentation for a Package
                 "printr", # Automatically Print R Objects to Appropriate Formats According to the 'knitr' Output Format
                 "processx",          # Execute and Control System Processes
