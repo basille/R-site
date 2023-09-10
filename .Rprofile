@@ -325,12 +325,12 @@ if (interactive()) {
                 "magick",            # Advanced Graphics and Image-Processing in R
                 "mailR",             # A Utility to Send Emails from R
                 "nomnoml",           # Sassy 'UML' Diagrams
-                "packrat", # A Dependency Management System for Projects and their R Package Dependencies
                 "palmerpenguins",    # Palmer Archipelago (Antarctica) Penguin Data
                 "pkgdown",           # Make Static HTML Documentation for a Package
                 "printr", # Automatically Print R Objects to Appropriate Formats According to the 'knitr' Output Format
                 "processx",          # Execute and Control System Processes
                 "remotes",           # R Package Installation from Remote Repositories, Including 'GitHub'
+                "renv",              # Project Environments
                 "rmarkdown",         # Dynamic Documents for R
                 "rorcid",            # Interface to the 'Orcid.org' 'API'
                 "roxygen2",          # In-Source Documentation for R
@@ -365,6 +365,7 @@ if (interactive()) {
                 "didacs/ggsunburst",                # Sunburst diagrams in ggplot2
                 "cttobin/ggthemr",                  # ggplot2 themes (for posters/presentations)
                 "lina2497/Giftmap",                 # Create map posters
+                "sachit27/greenR",                  # Green Index Analysis
                 "cloudyr/limer",                    # A LimeSurvey R client
                 "sctyner/memer",                    # Creating memes with R and magick
                 "picardis/nestR",                   # Estimation of Bird Nesting from Tracking Data
