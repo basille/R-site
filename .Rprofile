@@ -402,7 +402,7 @@ source("~/.R-site/.GBIF")
 
 ## date in different locale (e.g. French)
 ## https://stackoverflow.com/questions/65412576/how-to-ouput-a-date-punctually-in-another-language-in-r
-locale_date <- function(x =  Sys.Date(), format = "%A %d %B",
+locale_date <- function(x =  Sys.Date(), format = "%A %d %B %Y",
     locale = "fr_FR.utf8") {
     current_locale <- Sys.getlocale("LC_TIME")
     ## When function exits, restore original locale
@@ -414,7 +414,7 @@ locale_date <- function(x =  Sys.Date(), format = "%A %d %B",
 ## session_info adapted for Markdown output
 session_info_md <- function(language = c("EN", "FR"), header_level = 2,
     unnumbered = FALSE, sort_attached =  TRUE) {
-    if (!(header_level %in% 2:6))
+    if (!(header_level %in% 1:6))
         stop("`header_level` must be an integer between 1 and 6")
     header_main <- paste(rep("#", header_level), collapse = "")
     header_second <- paste(rep("#", header_level + 1), collapse = "")
