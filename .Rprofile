@@ -28,9 +28,9 @@ if (interactive()) {
 
     ## Interactive sessions get a fortune cookie (needs cosway and
     ## fortunes packages)
-    if (require("cowsay", quietly = TRUE))
+    if (require("cowsay", quietly = TRUE) & require("fortunes", quietly = TRUE))
         suppressWarnings(cowsay::say(what = "fortune",
-            by = sample(names(animals)[!(names(animals) %in%
+            by = sample(animals[!(animals %in%
                 c("shortcat", "longcat", "fish", "signbunny",
                     "stretchycat", "anxiouscat", "longtailcat",
                     "grumpycat", "mushroom"))], 1)))
