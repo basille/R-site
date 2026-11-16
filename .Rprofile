@@ -17,13 +17,17 @@ require("conflicted", quietly = TRUE)
 
 ## Load basr:
 require("basr", quietly = TRUE)
+## Load packages at the start of R if the package list exists
+basr:::.loadpkglist()
 
-## Print a fortune:
-if (require("cowsay", quietly = TRUE) & require("fortunes", quietly = TRUE))
-    cowsay::say(what = "fortune",
-        by = sample(cowsay::animals[!(cowsay::animals %in%
+## Print a fortune (in interactive sessions):
+if (interactive()) {
+    if (require("cowsay", quietly = TRUE) & require("fortunes", quietly = TRUE))
+        cowsay::say(what = "fortune",
+            by = sample(cowsay::animals[!(cowsay::animals %in%
                  c("shortcat", "longcat", "fish", "signbunny", "stretchycat",
                      "anxiouscat", "longtailcat", "grumpycat", "mushroom"))], 1))
+}
 
 ## Identifications: ORCiD & GBIF
 source("~/.R-site/.ORCiD")
