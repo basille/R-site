@@ -1,6 +1,11 @@
-% Basic steps to write an R package
-% Mathieu Basille
-% 2026-11-13
+---
+title: "Basic steps to write an R package"
+author: "Mathieu Basille"
+date: "2026-11-16"
+output:
+  md_document:
+    preserve_yaml: true
+---
 
 This document briefly explains the minimal steps to write a package for
 R. Detailed information are given in the ["R Packages" online
@@ -231,7 +236,7 @@ user-friendly website, that can be hosted for instance on GitHub Pages. You
 first need to create (or check) a temporary Personal access tokens (PAT) to
 GitHub with:
 
-```{r gitcreds}
+```{r gitcreds, eval = FALSE}
 gitcreds::gitcreds_set()
 credentials::set_github_pat()
 ```
@@ -239,7 +244,7 @@ credentials::set_github_pat()
 Then let `pkgdown` initialise the configuration with the following command (to
 run only once):
 
-```{r web-init-ghpages}
+```{r web-init-ghpages, eval = FALSE}
 usethis::use_pkgdown_github_pages()
 ```
 

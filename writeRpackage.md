@@ -1,0 +1,254 @@
+---
+title: "Basic steps to write an R package"
+author: "Mathieu Basille"
+date: "2026-11-16"
+output:
+  md_document:
+    preserve_yaml: true
+---
+
+This document briefly explains the minimal steps to write a package for
+R. Detailed information are given in the [“R Packages” online
+book](https://r-pkgs.org/) by Hadley Wickham and Jennifer Bryan and the
+R manual [“Writing R
+Extensions”](http://cran.r-project.org/doc/manuals/R-exts.html). This
+tutorial makes extensive use of the [package
+`devtools`](https://cran.r-project.org/package=devtools), but also
+relies on the base R package `tools`, as well as packages `roxygen2`,
+`testthat`, and `knitr`, and eventually `pkgdown` and `nanonext` to
+create a companion website. Let’s install them now:
+
+    install.packages(c("devtools", "roxygen2", "testthat", "knitr", "pkgdown", "nanonext"))
+
+We load at least `devtools`, which provides most relevant functions (and
+also attach package `usethis` for other important ones):
+
+    library("devtools")
+
+## Package structure
+
+We start by setting the name of the package and creating it (I have my
+packages in `~/.R-site/packages/`):
+
+    my_pkg <- "mypkg"
+    create_package(paste0("~/.R-site/packages/", my_pkg))
+
+This create the most minimal package structure, with the following
+structure:
+
+    <mypkg>/
+    +-- R/
+    +-- DESCRIPTION
+    +-- NAMESPACE
+
+-   `R/`: A folder which contains all R source code;
+-   `DESCRIPTION`: A file which provides metadata about the package;
+-   `NAMESPACE`: A file which describes the functions available for
+    others to use. It will be automatically generated.
+
+We then need to edit the content of the `DESCRIPTION` file (which comes
+with a template already). An example would look like the following (note
+it will be reformatted in the process, such as line breaks):
+
+    Package: basr
+    Title: Basic, but Hopefully Useful, Functions
+    Version: 1.1.0
+    Date: 2026-11-12
+    Authors@R: c(
+        person("Mathieu", "Basille", email = "mathieu@basille.org",
+            role = c("aut", "cre", "cph"),
+            comment = c(ORCID = "0000-0001-9366-7127")))
+    Description: Collection of basic functions for a variety of usage (data,
+        statistics, graphs, package management, utils), mostly for my own
+        convenience.
+    URL: https://github.com/basille/basr
+    Suggests:
+        devtools,
+        httpgd,
+        knitr,
+        pak,
+        sessioninfo
+    License: MIT + file LICENSE
+    Config/roxygen2/version: 8.1.1
+    Encoding: UTF-8
+    Roxygen: list(markdown = TRUE)
+
+**Note:** If the package is already created, we simply name it and set
+the working directory to the proper folder:
+
+    my_pkg <- "mypkg"
+    setwd(paste0("~/.R-site/packages/", my_pkg))
+
+A good place to describe the package is in the file `README.Rmd`, which
+can be properly initialised with:
+
+    usethis::use_readme_rmd()
+
+The following command produces `README.md`, which is used in the GitHub
+repository for instance:
+
+    devtools::build_readme()
+
+## R code and documentation
+
+The R source code can then be placed in the `R` directory, preferably
+with one file per function (or group of functions) or a single R file
+with all the code `/R/mypkg-package.R`. All functions and data sets, as
+well as the package itself, must be documented following the `roxygen2`
+syntax directly in the source code (see [details
+here](https://r-pkgs.org/man.html)). When the functions are ready to
+use, they can be loaded (with a result similar to a call to
+`library("<mypkg>")` for a regularly installed package) via:
+
+    load_all()
+
+If the `roxygen2` tags are properly completed in the R source code, we
+can proceed to update the documentation (`.Rd` files, `DESCRIPTION` and
+`NAMESPACE`):
+
+    document()
+
+The documentation itself is generated in a new folder, which contains
+help files (`.Rd`) for each documented function (or group of functions):
+
+    <mypkg>/
+    +-- man
+    |   +-- <files>.Rd
+    +-- R
+    |   +-- <files>.R
+    +-- DESCRIPTION
+    +-- NAMESPACE
+
+## Check and test
+
+A series of checks can then be run, first on the examples, and then more
+generally on the package structure and content:
+
+    run_examples()
+    check()
+
+If problems such as “Error : extractFromURL.Rd: non-ASCII input and no
+declared encoding” arrise, we can use the `tools` package to identify
+which is (are) the faulty line(s):
+
+    tools::showNonASCII(readLines("/man/XXX.Rd"))
+
+For complex packages, it might be useful to prepare and run a battery of
+[tests](https://r-pkgs.org/testing-basics.html).
+
+    test()
+
+Now don’t forget to write the changelog and news in the NEWS file, as
+well as updating other documentation files (see
+[details](https://r-pkgs.org/other-markdown.html)). If necessary, update
+the `README.md` file as well (with `devtools::build_readme()`).
+
+If required, the PDF manual can be easily generated with the function
+`manual` from `basr`, which is wrapper to `R CMD Rd2pdf`. The function
+needs the package name or path as input. Options include the target
+directory (by default, the package directory, which is where I leave
+them), and two additional options to preview (`preview = TRUE` by
+default) or overwrite (`overwrite = FALSE` by default) the PDF.
+
+    basr::manual()
+    basr::manual(overwrite = TRUE)
+    ## manual(path = "src/contrib", preview = FALSE, overwrite = TRUE)
+
+    ## Check argument 'manual' in 'build' (FALSE by default)
+
+## Installation and packaging
+
+The package is now ready to install. The package can be directly
+installed locally:
+
+    install()
+    install(build_vignettes = TRUE)
+
+To distribute the package, the easiest way is to publish it in a GitHub
+repository. The package can then simply be installed with the help of
+the package [`remotes`](https://cran.r-project.org/package=remotes) or,
+better, [`pak`](https://cran.r-project.org/package=pak):
+
+    remotes::install_github("<repo>/<pkg>")
+    pak::pkg_install("<repo>/<pkg>")
+
+To reach a wider audience, and allow better inclusion in the R package
+ecosystem, it is interesting to consider a submission to CRAN (expect
+difficulties). [Follow the checklist](https://r-pkgs.org/release.html)
+step by step to ensure a successful submission.
+
+Note that there is a special web service called
+[Win-builder](http://win-builder.r-project.org/) that checks packages
+against Windows systems. This service uses the e-mail address specified
+in the “Maintainer” field of the package’s `DESCRIPTION` file to send
+the result of the process. We can check packages against the previous
+major release version of R, the current release and the development
+version (the last two need at least to be checked):
+
+    check_win_oldrelease()
+    check_win_release()
+    check_win_devel()
+
+If all checks are successful and all files are properly updated and
+documented (including comments for CRAN in `cran-comments.md`), the
+package can be released to CRAN:
+
+    submit_cran()
+
+## Companion website
+
+With the help of a the package `pkgdown`, it is super easy to create a
+nice, user-friendly website, that can be hosted for instance on GitHub
+Pages. You first need to create (or check) a temporary Personal access
+tokens (PAT) to GitHub with:
+
+    gitcreds::gitcreds_set()
+    credentials::set_github_pat()
+
+Then let `pkgdown` initialise the configuration with the following
+command (to run only once):
+
+    usethis::use_pkgdown_github_pages()
+
+What it does:
+
+-   Creates `_pkgdown.yml`, which is the main configuration file for
+    pkgdown.
+-   Adds various patterns to `.Rbuildignore`, to keep pkgdown-specific
+    files and directories from being included in your package bundle.
+-   Adds `docs`, the default destination for a rendered site, to
+    `.gitignore`.
+-   Creates a dedicated branch `gh-pages` for the website.
+-   Initiate GitHub Pages on the repository and configures it.
+-   Use the GitHub Pages URL as the home page of the package (including
+    in `DESCRIPTION`).
+
+Then to render the website locally, use:
+
+    pkgdown::build_site()
+
+To have a nice organisation of the functions, edit `_pkgdown.yml` and
+add something like this, with as many subsections as needed (see details
+in
+[pkgdown::build\_reference](https://pkgdown.r-lib.org/reference/build_reference.html)):
+
+    reference:
+    - title: Basic, but Hopefully Useful, Functions
+
+    - subtitle: Data management
+      desc: >
+        Functions to handle data from vectors and data frames.
+      contents:
+      - colNAs
+      - extrange
+      - kcut
+      - …
+
+Now every time a commit is pushed on the GitHub repository, GitHub
+Actions will build the website and make it available at
+`https://<user>.github.io/<mypkg/` (it will take a few minutes for the
+magic to work remotely).
+
+<!-- If you get a **404 error**, be sure to check that the GitHub Pages link to the -->
+<!-- `/docs` folder of the `gh-pages` branch (under Settings > Pages > Build and -->
+<!-- deployment). -->
