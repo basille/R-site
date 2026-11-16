@@ -83,6 +83,21 @@ my_pkg <- "mypkg"
 setwd(paste0("~/.R-site/packages/", my_pkg))
 ```
 
+A good place to describe the package is in the file `README.Rmd`, which can be
+properly initialised with:
+
+```{r readme-init, eval = FALSE}
+usethis::use_readme_rmd()
+```
+
+The following command produces `README.md`, which is used in the GitHub
+repository for instance:
+
+
+```{r readme-build, eval = FALSE}
+devtools::build_readme()
+```
+
 ## R code and documentation
 
 The R source code can then be placed in the `R` directory, preferably with one
@@ -143,7 +158,8 @@ test()
 
 Now don't forget to write the changelog and news in the NEWS file, as well as
 updating other documentation files (see
-[details](https://r-pkgs.org/other-markdown.html)). 
+[details](https://r-pkgs.org/other-markdown.html)). If necessary, update the
+`README.md` file as well (with `devtools::build_readme()`).
 
 If required, the PDF manual can be easily generated with the function `manual`
 from `basr`, which is wrapper to `R CMD Rd2pdf`. The function needs the package
