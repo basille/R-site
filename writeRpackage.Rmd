@@ -283,6 +283,6 @@ Now every time a commit is pushed on the GitHub repository, GitHub Actions will
 build the website and make it available at `https://<user>.github.io/<mypkg/`
 (it will take a few minutes for the magic to work remotely). 
 
-If you get a **404 error**, be sure to check that the GitHub Pages link to the
-`/docs` folder of the `gh-pages` branch (under Settings > Pages > Build and
-deployment).
+<!-- If you get a **404 error**, be sure to check that the GitHub Pages link to the -->
+<!-- `/docs` folder of the `gh-pages` branch (under Settings > Pages > Build and -->
+<!-- deployment). -->
