@@ -1,4 +1,4 @@
-## Options: CRAN mirror, papersize (letter), no tcltk, styler
+## Global options:
 options(
     ## Use closest CRAN mirror automatically:
     repos = c(CRAN = "https://cloud.r-project.org/"),
@@ -12,15 +12,15 @@ options(
     styler.cache_root = "styler"
 )
 
-## Conflict resolution with conflicted:
+## Conflict resolution with `conflicted`:
 require("conflicted", quietly = TRUE)
 
-## Load basr:
+## Load `basr`:
 require("basr", quietly = TRUE)
-## Load packages at the start of R if the package list exists
+## Load packages at the start of R if the package list exists:
 basr:::.loadpkglist()
 
-## Print a fortune (in interactive sessions):
+## Print a fortune with `cowsay` & `fortunes` (in interactive sessions):
 if (interactive()) {
     if (require("cowsay", quietly = TRUE) & require("fortunes", quietly = TRUE))
         cowsay::say(what = "fortune",
@@ -29,6 +29,14 @@ if (interactive()) {
                      "anxiouscat", "longtailcat", "grumpycat", "mushroom"))], 1))
 }
 
-## Identifications: ORCiD & GBIF
+## Credentials for ORCiD:
+## The file .ORCiD contains a single line with the ORCiD token:
+## options(orcid_token = "xxxx-xxxx")
 source("~/.R-site/.ORCiD")
+
+## Credentials for GBIF
+## The file .ORCiD contains three lines with the GBIF user account:
+## Sys.setenv(GBIF_USER = "<user>",
+##            GBIF_PWD = "<password>",
+##            GBIF_EMAIL = "<email>")
 source("~/.R-site/.GBIF")

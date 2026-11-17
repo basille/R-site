@@ -1,10 +1,4 @@
-### Default pdf viewer
-#R_PDFVIEWER='/usr/bin/xpdf'
-R_PDFVIEWER='/usr/bin/evince'
-#R_PDFVIEWER=${R_PDFVIEWER-'evince'}
-
 ### To get R in English:
-#LANGUAGE=en
 LC_ALL=en_US.UTF-8
 
 ### Packages in the home directory:
@@ -15,5 +9,5 @@ _R_CHECK_LENGTH_1_CONDITION_=verbose
 _R_CHECK_LENGTH_1_LOGIC2_=verbose
 
 ### Use Pandoc from RStudio
-RSTUDIO_PANDOC="/usr/lib/rstudio/bin/pandoc/pandoc"
-PATH="/usr/lib/rstudio/bin/pandoc/pandoc:${PATH}"
+#RSTUDIO_PANDOC="/usr/lib/rstudio/bin/pandoc/pandoc"
+#PATH="/usr/lib/rstudio/bin/pandoc/pandoc:${PATH}"
