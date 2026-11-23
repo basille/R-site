@@ -233,8 +233,8 @@ submit_cran()
 
 With the help of a the package `pkgdown`, it is super easy to create a nice,
 user-friendly website, that can be hosted for instance on GitHub Pages. You
-first need to create (or check) a temporary Personal access tokens (PAT) to
-GitHub with:
+first need to create (or check) a temporary [Personal access
+tokens](https://github.com/settings/tokens/) (PAT) to GitHub with:
 
 ```{r gitcreds, eval = FALSE}
 gitcreds::gitcreds_set()
@@ -259,6 +259,9 @@ What it does:
 - Use the GitHub Pages URL as the home page of the package (including in
   `DESCRIPTION`).
 
+Note that you need to add the `.github/` folder to the tracked files, and push
+it to GitHub.
+
 Then to render the website locally, use:
 
 ```{r web-local, eval = FALSE}
@@ -273,9 +276,8 @@ something like this, with as many subsections as needed (see details in
 ```
 reference:
 - title: Basic, but Hopefully Useful, Functions
-
 - subtitle: Data management
-  desc: >
+  desc: |
     Functions to handle data from vectors and data frames.
   contents:
   - colNAs
