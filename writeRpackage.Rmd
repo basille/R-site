@@ -22,7 +22,7 @@ document()
 run_examples()
 check()
 
-## Install
+## Install locally
 install()
 
 ## CRAN
