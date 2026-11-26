@@ -7,6 +7,35 @@ output:
     preserve_yaml: true
 ---
 
+```{r in-a-nutshell, echo = FALSE, eval = FALSE}
+## Packages
+library("devtools")
+my_pkg <- "mypkg"
+setwd(paste0("~/.R-site/packages/", my_pkg))
+
+## README.Rmd → README.md
+devtools::build_readme()
+
+## Load, document and check
+load_all()
+document()
+run_examples()
+check()
+
+## Install
+install()
+
+## CRAN
+check_win_oldrelease()
+check_win_release()
+check_win_devel()
+submit_cran()
+
+## Reset GitHub credentials
+gitcreds::gitcreds_set()
+credentials::set_github_pat()
+```
+
 This document briefly explains the minimal steps to write a package for
 R. Detailed information are given in the ["R Packages" online
 book](https://r-pkgs.org/) by Hadley Wickham and Jennifer Bryan and the R manual
